@@ -9,12 +9,12 @@
 import Foundation
 
 func readFile(filePath: String) -> String {
-    let splited = filePath.componentsSeparatedByString(".")
-    let file = splited.dropLast().joinWithSeparator(".")
-    let ext = splited.last!
+    let splited: [String] = filePath.componentsSeparatedByString(".")
+    let file: String = splited.dropLast().joinWithSeparator(".")
+    let ext: String = splited.last!
 
     let bundle = NSBundle.mainBundle()
-    let path = bundle.pathForResource(file, ofType: ext)!
+    let path: String = bundle.pathForResource(file, ofType: ext)!
 
     do {
         let content = try String(contentsOfFile: path, encoding: NSUTF8StringEncoding)

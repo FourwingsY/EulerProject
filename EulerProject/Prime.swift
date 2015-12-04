@@ -59,6 +59,8 @@ class Prime : SequenceType {
 
 private let PrimeNumbers = Prime()
 
+import Darwin
+
 extension Int {
     static func nthPrime(n: Int) -> Int {
         return PrimeNumbers[n]
@@ -76,5 +78,25 @@ extension Int {
             }
         }
         return [self]
+    }
+    var divisors: [Int] {
+        let l = Int(floor(sqrt(Double(self))))
+        let divisors = (1...l)
+            .filter {self % $0 == 0}
+            .map {
+                n -> [Int] in
+                if (n != self / n) {
+                    return [n, self / n]
+                } else {
+                    return [n]
+                }
+            }
+            .reduce([], combine: (+))
+        return divisors.sort()
+    }
+    var properDivisors: [Int] {
+        return self.divisors.filter {
+            $0 != self
+        }
     }
 }

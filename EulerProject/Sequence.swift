@@ -6,8 +6,20 @@
 // get from: https://github.com/pNre/ExSwift/blob/Swift-2.0/ExSwift/Sequence.swift
 
 extension SequenceType {
-    func takeWhile (condition:(Self.Generator.Element?) -> Bool) -> AnySequence<Self.Generator.Element>  {
+    func takeWhile (condition:(Generator.Element?) -> Bool) -> AnySequence<Generator.Element>  {
         return AnySequence(TakeWhileSequence(self, condition))
+    }
+    func findOne (condition:(Generator.Element?) -> Bool) -> Generator.Element? {
+        var generator = self.generate()
+        while true {
+            let next: Generator.Element? = generator.next()
+            if next == nil {
+                return nil
+            }
+            if condition(next) {
+                return next
+            }
+        }
     }
     func groupBy<U : Hashable>(keyFunc: Generator.Element -> U) -> [U:[Generator.Element]] {
         var dict: [U:[Generator.Element]] = [:]

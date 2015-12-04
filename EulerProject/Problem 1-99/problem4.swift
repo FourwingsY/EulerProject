@@ -6,8 +6,6 @@
 //  Copyright © 2015 YG. All rights reserved.
 //
 
-import Foundation
-
 func problem4(digits: Int) -> Int {
     let max = (10 ^^ digits) - 1
 
@@ -27,9 +25,4 @@ func isPalindrome(word: String) -> Bool {
 }
 func isPalindrome(n: Int) -> Bool {
     return isPalindrome(String(n))
-}
-
-infix operator ^^ { }
-func ^^ (radix: Int, power: Int) -> Int {
-    return Int(pow(Double(radix), Double(power)))
 }
